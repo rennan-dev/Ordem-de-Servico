@@ -1,0 +1,31 @@
+{
+  "name": "ordemdeservico",
+  "version": "1.0.0",
+  "description": "trabalho para a disciplina de desenvolvimento web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rennan-dev/Ordem-de-Servico.git"
+  },
+  "author": "anderson&rennan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rennan-dev/Ordem-de-Servico/issues"
+  },
+  "homepage": "https://github.com/rennan-dev/Ordem-de-Servico#readme",
+  "devDependencies": {
+    "mysql2": "^3.9.2"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "express": "^4.18.3",
+    "express-fileupload": "^1.4.3",
+    "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
+    "nodemon": "^3.1.0"
+  }
+}
