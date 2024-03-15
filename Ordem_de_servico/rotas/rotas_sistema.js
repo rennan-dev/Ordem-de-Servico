@@ -53,14 +53,17 @@ router.get('/index_gerente', function(req,res) {
 
 //rota para lidar com a submissão do formulário do servidor
 router.post('/formulario', function(req, res) {
-    // Extrair os dados do corpo da solicitação
-    //const { nome, email, siape, bloco, sala, descricaoProblema } = req.body;
     let nome = req.body.nome;
     let email = req.body.email;
     let siape = req.body.siape;
     let bloco = req.body.bloco;
     let sala = req.body.sala;
     let descricaoProblema = req.body.descricaoProblema;
+
+    // Verificar se todos os campos estão preenchidos
+    if (!nome || !email || !siape || !bloco || !sala || !descricaoProblema) {
+        return res.render('index', { erro: 'Por favor, preencha todos os campos.' });
+    }
 
     // Chame a função do serviço para inserir os dados no banco de dados
     servico.inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema)
@@ -76,77 +79,21 @@ router.post('/formulario', function(req, res) {
         });
 });
 
-//rota para lidar com a solicitação de informações com base na data selecionada
-// router.get('/selecionar_data', async function(req, res) {
-//     // Extrair a data da consulta de URL
-//     const { data_solicitacao } = req.query;
-//     // let data_solicitacao = req.body.datapicker;
-//     console.log(data_solicitacao);
-
-//     // Converter a data para o formato YYYY-MM-DD
-//     const partesData = data_solicitacao.split('/'); // Dividir a data em partes
-//     const dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0]; // Formatar para YYYY-MM-DD
-
-//     try {
-//         // Chamar a função do serviço para obter as informações com base na data
-//         const informacoes = await servico.obterInformacoesPorData(dataFormatada);
-
-//         // Se houver informações, enviar como resposta
-//         if (informacoes.length > 0) {
-//             res.json(informacoes);
-//         } else {
-//             res.send('Nenhuma informação encontrada para esta data.');
-//         }
-//     } catch (error) {
-//         console.error('Erro ao obter informações por data:', error);
-//         res.status(500).send('Erro interno do servidor');
-//     }
-// });
-
-//rota de solicitações de dia especifico
-// router.get('/informacoes_nome', async function(req, res) {
-//     const { data_solicitacao } = req.query;
-
-//     try {
-//         // Chamar a função do serviço para obter apenas os nomes dos usuários com solicitações na data especificada
-//         const nomes = await servico.obterNomesPorData(data_solicitacao);
-
-//         // Se houver nomes, enviar como resposta
-//         if (nomes.length > 0) {
-//             res.render('solicitacoes', { diaSelecionado: data_solicitacao, nomes }); // Passar o dia selecionado e os nomes para a página
-//         } else {
-//             res.send('Nenhum usuário encontrado com solicitações nesta data.');
-//         }
-//     } catch (error) {
-//         console.error('Erro ao obter nomes por data:', error);
-//         res.status(500).send('Erro interno do servidor');
-//     }
-// });
-
 router.get('/selecionar_data', function(req, res) {
     const { data_solicitacao } = req.query;
-    
+
+    // Verificar se a data de solicitação foi fornecida
+    if (!data_solicitacao) {
+        // Se a data não foi fornecida, renderizar a página novamente com a mensagem de erro
+        return res.render('index_gerente', { erro: 'Por favor, selecione uma data antes de pesquisar.' });
+    }
+
     // Converter a data para o formato YYYY-MM-DD
-     const partesData = data_solicitacao.split('/'); // Dividir a data em partes
-     const dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0]; // Formatar para YYYY-MM-DD
-    
-     res.redirect(`/solicitacoes?data_solicitacao=${dataFormatada}`);
+    const partesData = data_solicitacao.split('/'); // Dividir a data em partes
+    const dataFormatada = partesData[2] + '-' + partesData[1] + '-' + partesData[0]; // Formatar para YYYY-MM-DD
+
+    res.redirect(`/solicitacoes?data_solicitacao=${dataFormatada}`);
 });
-
-// router.get('/solicitacoes', async function(req, res) {
-//     const { data_solicitacao } = req.query;
-
-//     try {
-//         // Chamar a função do serviço para obter apenas os nomes dos usuários com solicitações na data especificada
-//         const nomes = await servico.obterNomesPorData(data_solicitacao);
-
-//         // Renderizar a página solicitacoes.handlebars com os nomes, se houver, ou uma mensagem indicando que não há solicitações
-//         res.render('solicitacoes', { diaSelecionado: data_solicitacao, nomes });
-//     } catch (error) {
-//         console.error('Erro ao obter nomes por data:', error);
-//         res.status(500).send('Erro interno do servidor');
-//     }
-// });
 
 router.get('/solicitacoes', async function(req, res) {
     const { data_solicitacao } = req.query;

@@ -176,48 +176,48 @@ label {
 /*box para guardar as informações de solicitação*/
 .info-box {
   margin-top: 20px;
-  max-height: 400px; /* Altura máxima da caixa */
+  max-height: 400px; 
   max-width: 500px;
   height: 400px;
   width: 500px;
-  overflow-y: auto; /* Ativa a barra de rolagem vertical quando necessário */
-  border: 1px solid #ccc; /* Adiciona uma borda para destacar a caixa */
-  padding: 10px; /* Adiciona um espaço interno para melhorar a aparência */
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
+  padding: 10px; 
 }
 
 /*botao para voltar*/
 #voltar-index-gerente {
   display: inline-block; /* Permite adicionar margem à direita */
-  margin-top: 10px; /* Adiciona margem superior para separar o link da caixa */
+  margin-top: 10px; 
   margin-right: 300px;
-  padding: 5px 10px; /* Adiciona preenchimento para melhorar a aparência do link */
-  background-color: #007bff; /* Cor de fundo do link */
-  color: #fff; /* Cor do texto do link */
-  text-decoration: none; /* Remove o sublinhado padrão */
-  border-radius: 5px; /* Adiciona bordas arredondadas */
+  padding: 5px 10px; 
+  background-color: #007bff; 
+  color: #fff; 
+  text-decoration: none; 
+  border-radius: 5px; 
 }
 
 #voltar-index-gerente:hover {
-  background-color: #0056b3; /* Cor de fundo do link ao passar o mouse */
+  background-color: #0056b3;
 }
 
 /*customização da lista de nomes*/
 .custom-list {
-  list-style-type: none; /* Remove as bolas na frente dos itens */
-  padding: 0; /* Remove o preenchimento padrão da lista */
+  list-style-type: none; 
+  padding: 0; 
 }
 
 .custom-list li {
-  border-bottom: none; /* Remove a linha abaixo de cada item */
+  border-bottom: none; 
 }
 
 .custom-list li a {
-  text-decoration: none; /* Remove o sublinhado padrão dos links */
-  color: #000; /* Cor do texto dos links */
+  text-decoration: none; 
+  color: #000; 
 }
 
 .custom-list li a:hover {
-  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse sobre os links */
+  text-decoration: underline; 
 }
 
 

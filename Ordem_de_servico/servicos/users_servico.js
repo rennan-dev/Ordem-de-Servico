@@ -21,19 +21,20 @@ function loginGerente(req,res) {
     let email = req.body.email;
     let password = req.body.password;
 
+    if (!email || !password) {
+        return res.render('login', { erro: 'Por favor, preencha todos os campos.' });
+    }
+
     let sql = `SELECT * FROM user WHERE email = ? AND senha = ?`;
     conexao.query(sql, [email, password], function(err, result) {
         if (err) {
-            console.log("Erro ao consultar o banco de dados:", err);
-            res.redirect('/login'); 
-            return;
+            return res.render('login', { erro: 'Erro ao consultar o banco de dados' });
         }
         if (result.length > 0) {
             req.session.usuario = result[0]; // Definindo o usuário na sessão
             res.redirect('/index_gerente'); // Redireciona para a página de gerente se as credenciais estiverem corretas
         } else {
-            console.log("Credenciais Inválidas");
-            res.redirect('/login'); 
+            return res.render('login', { erro: 'Credenciais Inválidas' });
         }
     });
 }

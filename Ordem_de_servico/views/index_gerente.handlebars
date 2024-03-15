@@ -18,16 +18,22 @@
 </header>
 <!--header end-->
 
+<!--mensagem de erro se houver-->
+{{#if erro}}
+    <div class="alert alert-danger" style="margin-top: 15px;">{{erro}}</div>
+{{/if}}
+
+<!--section menu start-->
 <section class="menu">
     <h1>Solicitações Registradas</h1>
     <br><br>
     <form id="dateForm" action="/selecionar_data" method="get" autocomplete="off">
         <label for="datepicker">Selecione uma data:</label>
         <input type="text" id="datepicker" name="data_solicitacao">
-        <button type="submit" id="button-selecionar-data">Enviar</button>
+        <button type="submit" id="button-selecionar-data">Pesquisar</button>
     </form>
 </section>
-
+<!--section menu end-->
 
 <!--footer start-->
 <footer>
