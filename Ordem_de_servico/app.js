@@ -10,9 +10,6 @@ const { engine } = require('express-handlebars');
 //importar modulo de rotas
 const rota_produto = require('./rotas/rotas_sistema');
 
-
-
-
 //App
 const app = express();
 

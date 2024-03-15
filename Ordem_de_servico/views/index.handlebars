@@ -13,28 +13,28 @@
 <!--section menu start-->
 <section class="menu">
     <h1>Ordem de Serviço</h1>
-    <form action="" class="form-servidor">
+    <form action="/formulario" class="form-servidor" method="post">
         <div class="div-form">
         <div>
             <label for="nome">Nome:</label>
-            <input type="text" id="nome">
+            <input type="text" name="nome" id="nome">
 
             <label for="email">Email:</label>
-            <input type="email" id="email">
+            <input type="email" name="email" id="email">
 
             <label for="siape">Siape:</label>
-            <input type="number" id="siape">
+            <input type="number" name="siape" id="siape">
 
             <label for="bloco">Bloco:</label>
-            <input type="text" id="bloco">
+            <input type="text" name="bloco" id="bloco">
 
             <label for="sala">Sala:</label>
-            <input type="number" id="sala">
+            <input type="number" name="sala" id="sala">
         </div>
 
         <div>
             <label for="descricao-problema">Descrição do Problema:</label>
-            <textarea name="descricao-problema" id="descricao-problema" cols="30" rows="10"></textarea>
+            <textarea name="descricaoProblema" id="descricaoProblema" cols="30" rows="10"></textarea>
 
             <button type="submit">Enviar</button>
         </div>

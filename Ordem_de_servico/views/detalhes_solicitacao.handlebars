@@ -1,0 +1,57 @@
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- jQuery UI -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+<!--header start-->
+<header>
+    <img src="../imagens/logo-ufam-icet.png" alt="logo-ufam-icet" id="logo">
+    <!-- Menu de navegação -->
+    <nav>
+        <ul>
+            <li><a href="/logout">Sair</a></li>
+        </ul>
+    </nav>
+</header>
+<!--header end-->
+
+{{!-- <section class="menu">
+    <h2>Solicitações do dia: {{ diaSelecionado }}</h2>
+    {{#if nomes.length}}
+        <ul>
+            {{#each nomes}}
+                <li>{{ this }}</li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>Nenhuma solicitação encontrada para esta data.</p>
+    {{/if}}
+    <a href="/index_gerente">voltar</a>
+</section> --}}
+
+<!-- Detalhes da Solicitação -->
+<section class="menu">
+    <h2>Detalhes da Solicitação</h2>
+    <div class="info-box">
+        <p><strong>Nome:</strong> {{ solicitacao.nome }}</p>
+        <p><strong>Email:</strong> {{ solicitacao.email }}</p>
+        <p><strong>SIAPE:</strong> {{ solicitacao.siape }}</p>
+        <p><strong>Bloco:</strong> {{ solicitacao.bloco }}</p>
+        <p><strong>Sala:</strong> {{ solicitacao.sala }}</p>
+        <p><strong>Descrição do Problema:</strong> {{ solicitacao.descricaoProblema }}</p>
+    </div>
+    <a href="/index_gerente" id="voltar-index-gerente">voltar</a>
+</section>
+
+<!--footer start-->
+<footer>
+    <div class="container-footer">
+        <p id="contact">Instituto de Ciências Exatas e Tecnologia</p>
+        <p>Universidade Federal do Amazonas</p>
+        <p>Av. Nossa Senhora do Rosário, 3863 - Bairro Tiradentes, Itacoatiara</p>
+    </div>
+</footer>
+<!--footer end-->

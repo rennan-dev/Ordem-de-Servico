@@ -18,14 +18,34 @@
 </header>
 <!--header end-->
 
+{{!-- <section class="menu">
+    <h2>Solicitações do dia: {{ diaSelecionado }}</h2>
+    {{#if nomes.length}}
+        <ul>
+            {{#each nomes}}
+                <li>{{ this }}</li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>Nenhuma solicitação encontrada para esta data.</p>
+    {{/if}}
+    <a href="/index_gerente">voltar</a>
+</section> --}}
+
 <section class="menu">
-    <h1>Solicitações Registradas</h1>
-    <br><br>
-    <form id="dateForm" action="/selecionar_data" method="get" autocomplete="off">
-        <label for="datepicker">Selecione uma data:</label>
-        <input type="text" id="datepicker" name="data_solicitacao">
-        <button type="submit" id="button-selecionar-data">Enviar</button>
-    </form>
+    <h2>Solicitações do dia: {{ diaSelecionado }}</h2>
+    <div class="info-box">
+        {{#if nomesEIds.length}}
+            <ul class="custom-list">
+                {{#each nomesEIds}}
+                    <li><a href="/detalhes_solicitacao/{{ this.id }}">{{ this.nome }}</a></li>
+                {{/each}}
+            </ul>
+        {{else}}
+            <p>Nenhuma solicitação encontrada para esta data.</p>
+        {{/if}}
+    </div>
+    <a href="/index_gerente" id="voltar-index-gerente">voltar</a>
 </section>
 
 
@@ -38,14 +58,3 @@
     </div>
 </footer>
 <!--footer end-->
-
-
-<!--selecionar data-->
-<script>
-    $(document).ready(function(){
-        $("#datepicker").datepicker({
-            dateFormat: 'dd/mm/yy'
-        });
-    });
-</script>
-

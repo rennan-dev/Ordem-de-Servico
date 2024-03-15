@@ -50,6 +50,86 @@ function logout(req,res) {
     });
 }
 
+//enviar formulario do servidor para o banco de dados
+function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema) {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO form_servidor (nome, email, siape, bloco, sala, descricaoProblema, data_solicitacao) VALUES (?, ?, ?, ?, ?, ?, NOW())';
+        conexao.query(sql, [nome, email, siape, bloco, sala, descricaoProblema], (error, result) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
+
+// Função para obter informações com base na data
+function obterInformacoesPorData(dataSolicitacao) {
+    return new Promise((resolve, reject) => {
+        // Consulta SQL para selecionar informações com base na data
+        const sql = `SELECT * FROM form_servidor WHERE DATE(data_solicitacao) = ?`;
+
+        // Executar a consulta SQL
+        conexao.query(sql, [dataSolicitacao], (error, results) => {
+            if (error) {
+                console.error('Erro ao executar consulta SQL:', error);
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+//função para obter solicitações de dia especifico
+function obterNomesPorData(dataSolicitacao) {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT id, nome FROM form_servidor WHERE DATE(data_solicitacao) = ?`;
+        conexao.query(sql, [dataSolicitacao], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                const nomes = results.map(result => result.nome);
+                resolve(nomes);
+            }
+        });
+    });
+}
+
+// Função para obter nomes e IDs das solicitações por data
+function obterNomesEIdsPorData(dataSolicitacao) {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT id, nome FROM form_servidor WHERE DATE(data_solicitacao) = ?`;
+        conexao.query(sql, [dataSolicitacao], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
+// Função para obter informações da solicitação pelo ID
+function obterInformacoesSolicitacao(id) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM form_servidor WHERE id = ?';
+        conexao.query(sql, [id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                if (results.length > 0) {
+                    resolve(results[0]);
+                } else {
+                    reject(new Error('Solicitação não encontrada'));
+                }
+            }
+        });
+    });
+}
+
+
 
 // Exportar funções
 module.exports = {
@@ -57,5 +137,10 @@ module.exports = {
     paginaLoginGerente,
     paginaIndexGerente,
     loginGerente,
-    logout
+    logout,
+    inserirDadosNoBanco,
+    obterInformacoesPorData,
+    obterNomesPorData,
+    obterNomesEIdsPorData,
+    obterInformacoesSolicitacao
 };
