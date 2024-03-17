@@ -65,6 +65,50 @@ function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema)
     });
 }
 
+//**************************************************************/
+//Tentando enviar email start
+const nodemailer = require('nodemailer');
+// Função para enviar e-mail
+async function enviarEmail(nome) {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
+            pass: 'fxtg kmjk kgnz yhbl' // Substitua pela sua senha do Gmail ou use um token de aplicativo
+        }
+    });
+
+    const msg = {
+        from: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
+        to: 'rennansouzaalves@gmail.com', // Substitua pelo endereço de e-mail do administrador
+        subject: 'Nova solicitação de serviço recebida',
+        text: `Uma nova solicitação foi recebida de ${nome}.`
+    };
+
+    try {
+        await transporter.sendMail(msg);
+        console.log('E-mail enviado com sucesso!');
+    } catch (error) {
+        console.error('Ocorreu um erro ao enviar o e-mail:', error);
+    }
+}
+
+// Função para inserir dados no banco de dados e enviar e-mail
+async function inserirDadosEEnviarEmail(nome, email, siape, bloco, sala, descricaoProblema) {
+    try {
+        await inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema);
+
+        // Enviar e-mail informando sobre a nova solicitação
+        enviarEmail(nome);
+
+        console.log('E-mail enviado com sucesso!');
+    } catch (error) {
+        console.error('Ocorreu um erro:', error);
+    }
+}
+//Tentando enviar email end
+//**************************************************************/
+
 // Função para obter informações com base na data
 function obterInformacoesPorData(dataSolicitacao) {
     return new Promise((resolve, reject) => {
@@ -143,5 +187,6 @@ module.exports = {
     obterInformacoesPorData,
     obterNomesPorData,
     obterNomesEIdsPorData,
-    obterInformacoesSolicitacao
+    obterInformacoesSolicitacao,
+    inserirDadosEEnviarEmail
 };

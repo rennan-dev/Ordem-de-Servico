@@ -66,7 +66,7 @@ router.post('/formulario', function(req, res) {
     }
 
     // Chame a função do serviço para inserir os dados no banco de dados
-    servico.inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema)
+    servico.inserirDadosEEnviarEmail(nome, email, siape, bloco, sala, descricaoProblema)
         .then(() => {
             // Redirecione o usuário para uma página de sucesso ou faça outra ação apropriada
             res.redirect('/sucesso');
