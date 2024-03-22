@@ -48,7 +48,7 @@ function logout(req,res) {
             console.log(err);
         } else {
             // Redirecione o usuário para a página de login após o logout
-            res.redirect('/login');
+            res.redirect('/');
         }
     });
 }

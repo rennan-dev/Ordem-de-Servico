@@ -1,6 +1,8 @@
 <!--header start-->
 <header>
-    <img src="../imagens/logo-ufam-icet.png" alt="logo-ufam-icet" id="logo">
+    <a href="/index_gerente">
+        <img src="../imagens/logo-ufam-icet.png" alt="logo-ufam-icet" id="logo">
+    </a>
     <!-- Menu de navegação -->
     <nav>
         <ul>
@@ -21,7 +23,7 @@
         <p><strong>Sala:</strong> {{ solicitacao.sala }}</p>
         <p><strong>Descrição do Problema:</strong> {{ solicitacao.descricaoProblema }}</p>
         <p><strong>Status: </strong>
-            <span id="status" class="status-{{solicitacao.status}}" onclick="changeStatus()">
+            <span id="status" class="status-{{solicitacao.status}}" onclick="changeStatus()" style="cursor: pointer;" title="Clique para alterar o status">
                 {{solicitacao.status}}
             </span>
             <select id="novo_status" style="display: none;">

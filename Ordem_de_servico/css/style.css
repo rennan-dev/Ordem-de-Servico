@@ -9,6 +9,7 @@ body {
 /*
 header start
 */
+/* header start */
 header {
   background: #53b800;
   color: white;
@@ -26,33 +27,25 @@ header {
 #logo {
   height: 100px;
   width: 250px;
+  margin-right: 20px; /* Adiciona espaço entre o logotipo e o formulário de busca */
 }
 
-nav {
-  margin-right: 40px;
-}
-
-/*barra de pesquisa*/
-#search-box {
+#search-form {
   display: flex;
-  width: 400px;
   align-items: center;
 }
 
-#search-box input[type="text"],
-#search-box button {
-  height: 40px; /* Defina a altura desejada */
-}
-
-#search-box input[type="text"] {
+#search-form input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 5px 0 0 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  margin-right: 25px; /* Adiciona espaço entre o campo e o botão */
   width: 250px;
+  height: 40px;
+  margin-right: 10px; /* Adiciona espaço entre o campo de texto e o botão */
+  margin-top: 10px;
 }
 
-#search-box button {
+#search-form button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -60,11 +53,17 @@ nav {
   cursor: pointer;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
   width: 100px;
+  height: 40px;
 }
 
-#search-box button:hover {
+#search-form button:hover {
   background-color: #0056b3;
 }
+
+nav {
+  margin-right: 40px;
+}
+
 
 nav ul {
   list-style-type: none; 
@@ -293,6 +292,11 @@ label {
 .custom-list li a:hover {
   text-decoration: underline; 
 }
+
+.info-box ul {
+  list-style-type: none;
+}
+
 
 /*
 section menu end
