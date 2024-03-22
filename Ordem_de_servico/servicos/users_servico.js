@@ -234,7 +234,19 @@ function obterInformacoesSolicitacao(id) {
     });
 }
 
-
+// Função para obter protocolo por código
+async function obterProtocoloPorCodigo(protocolo) {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM form_servidor WHERE protocolo = ?';
+        conexao.query(sql, [protocolo], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
 
 // Exportar funções
 module.exports = {
@@ -248,5 +260,6 @@ module.exports = {
     obterNomesPorData,
     obterNomesEIdsPorData,
     obterInformacoesSolicitacao,
-    inserirDadosEEnviarEmail
+    inserirDadosEEnviarEmail,
+    obterProtocoloPorCodigo
 };

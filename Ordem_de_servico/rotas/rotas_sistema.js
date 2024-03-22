@@ -16,8 +16,84 @@ router.use(session({
 
 // Importar módulo de serviços
 const servico = require('../servicos/users_servico');
+const conexao = require('../bd/conexao_mysql');
 
 //ROTAS:
+
+const formatDate = (date) => {
+    const d = new Date(date);
+    const day = d.getDate().toString().padStart(2, '0');
+    const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Mês começa do zero
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+};
+
+//buscar protocolo no banco de dados
+router.get('/buscar_protocolo', async (req, res) => {
+    const { protocolo } = req.query;
+
+    try {
+        if (!protocolo) {
+            return res.redirect('/?erro=' + encodeURIComponent('Por favor, insira um protocolo.'));
+        }
+
+        let sql = `SELECT * FROM form_servidor WHERE protocolo = ?`;
+        conexao.query(sql, [protocolo], function(err, result) {
+            if (err) {
+                return res.status(500).send('Erro ao consultar o banco de dados');
+            }
+            if (result.length > 0) {
+                // Recupere todas as informações do protocolo encontrado
+                const protocoloEncontrado = result[0];
+
+                // Formate a data antes de passá-la para o template
+                protocoloEncontrado.data_solicitacao = formatDate(protocoloEncontrado.data_solicitacao);
+
+                // Renderize a página de solicitação e passe as informações do protocolo como contexto
+                res.render('solicitacao', { protocoloEncontrado });
+            } else {
+                return res.redirect('/?erro=' + encodeURIComponent('Protocolo não encontrado'));
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao buscar protocolo no banco de dados');
+    }
+});
+
+//rota para a página de pesquisa de solicitações dos servidores
+router.get('/solicitacao', function (req, res) {
+    // Supondo que você tenha uma variável protocolos com os dados a serem exibidos na página
+    const protocolos = [
+        { protocolo: 'Protocolo1', informacao: 'Informacao1' },
+        { protocolo: 'Protocolo2', informacao: 'Informacao2' },
+        // Adicione mais objetos de protocolo conforme necessário
+    ];
+
+    // Renderizar a página Handlebars e passar os dados necessários
+    res.render('solicitacao', { protocolos: protocolos });
+});
+
+//atualizar status da solicitação
+router.post('/atualizar_status', async (req, res) => {
+    try {
+        const { protocolo, novoStatus } = req.body;
+
+        // Execute a query para atualizar o status no banco de dados
+        const sql = `UPDATE form_servidor SET status = ? WHERE protocolo = ?`;
+        conexao.query(sql, [novoStatus, protocolo], function(err, result) {
+            if (err) {
+                return res.status(500).send('Erro ao atualizar o status no banco de dados');
+            }
+            // Envie uma resposta de sucesso
+            res.status(200).send('Status atualizado com sucesso');
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erro ao processar a solicitação');
+    }
+});
+
 
 //rota de login do gerente de TI (mova esta rota para cima)
 router.get('/login', function(req,res) {
@@ -126,7 +202,6 @@ router.get('/detalhes_solicitacao/:id', async function(req, res) {
         res.status(500).send('Erro interno do servidor');
     }
 });
-
 
 //rota para logout
 router.get('/logout', function(req,res) {

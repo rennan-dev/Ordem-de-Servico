@@ -32,6 +32,40 @@ nav {
   margin-right: 40px;
 }
 
+/*barra de pesquisa*/
+#search-box {
+  display: flex;
+  width: 400px;
+  align-items: center;
+}
+
+#search-box input[type="text"],
+#search-box button {
+  height: 40px; /* Defina a altura desejada */
+}
+
+#search-box input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-right: 25px; /* Adiciona espaço entre o campo e o botão */
+  width: 250px;
+}
+
+#search-box button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100px;
+}
+
+#search-box button:hover {
+  background-color: #0056b3;
+}
+
 nav ul {
   list-style-type: none; 
   margin: 0;
@@ -153,6 +187,46 @@ label {
   color: #0056b3;
 }
 
+.form-solicitacao {
+  width: 100%;
+  display: flex;
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.form-solicitacao a {
+  text-decoration: none;
+  color: black;
+}
+
+.form-solicitacao a:hover {
+  color: #0056b3;
+}
+
+.status-em_andamento {
+  background-color: rgba(255, 255, 0, 0.5); /* Amarelo transparente */
+  padding: 2px;
+}
+
+.status-concluída {
+  background-color: rgba(0, 255, 0, 0.5); /* Verde transparente */
+  padding: 2px;
+}
+
+.status-pendente {
+  background-color: rgba(20, 117, 228, 0.5); /* Laranja transparente */
+  padding: 2px;
+}
+
+.status-descartada {
+  background-color: rgba(255, 0, 0, 0.5); /* Vermelho transparente */
+  padding: 2px;
+}
+
+
+
+
+
 /* data formulario */
 #dateForm {
   width: 100%;
@@ -219,7 +293,6 @@ label {
 .custom-list li a:hover {
   text-decoration: underline; 
 }
-
 
 /*
 section menu end
