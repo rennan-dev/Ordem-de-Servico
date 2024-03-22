@@ -1,0 +1,38 @@
+<!--Código HTML-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de contato</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="box">
+    <form id="contactform" action="https://formsubmit.io/send/9d644a99-fa0d-42a7-959c-a2ee4c3f965c" method="POST">
+    <fieldset>
+        <legend><b>Formulário de Contato</b></legend>
+        <br>
+        <div class="inputBox">
+            <input name="name" type="text" class="inputUser" id="name" required>
+            <label for="" class="labelInput">Nome</label>
+        </div>
+        <br><br>
+        <div class="inputBox">
+            <input name="email" type="email" class="inputUser" id="email" required>
+            <label for="" class="labelInput">Email</label>
+        </div>
+        <br><br>
+        <div class="inputBox">
+        <textarea name="comment" class="inputUser" id="comment" rows="3" required></textarea>
+        <label for="" class="labelInput">Deixe o seu comentário</label>
+        </div>
+    
+        <input name="_formsubmit_id" type="text" style="display:none">
+    
+        <input id="submit" value="Enviar" type="submit">
+    </fieldset>
+    </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,168 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+/*
+header start
+*/
+header {
+  background: #53b800;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: padding 0.3s;
+}
+
+#logo {
+  height: 100px;
+  width: 250px;
+}
+
+nav {
+  margin-right: 40px;
+}
+
+nav ul {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+  display: flex; 
+}
+
+nav li {
+  margin-left: 20px; /* Espaçamento entre os itens do menu */
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+}
+
+nav a:hover {
+  color: #0056b3;
+}
+
+/*
+header end
+*/
+
+/*
+section menu start
+*/
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1; /* Para ocupar o espaço restante */
+  margin-top: 100px;
+}
+
+.form-servidor {
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.form-login {
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+button {
+  width: 50%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: right;
+  justify-content: right;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.menu h1 {
+  color: black;
+  font-size: 5rem;
+}
+
+.menu form #descricao-problema {
+  resize: none;
+  height: 300px;
+  text-align: left;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.form-end {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-end a {
+  text-decoration: none;
+  color: black;
+}
+
+.div-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-end a:hover {
+  color: #0056b3;
+}
+/*
+section menu end
+*/
+
+/*
+footer start
+*/
+footer {
+  background: #0f0f0f; /* Cor de fundo para o footer */
+  color: white; /* Cor do texto no footer */
+  padding: 10px; /* Adicionei um valor maior para o padding para melhorar a aparência */
+  width: 100%;
+  text-align: center;
+  margin-top: 100px;
+  bottom: 0;
+}
+/*
+footer end
+*/

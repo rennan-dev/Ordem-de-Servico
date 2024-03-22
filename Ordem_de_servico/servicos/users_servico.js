@@ -4,6 +4,8 @@ const conexao = require('../bd/conexao_mysql');
 // Importar o módulo file system
 const fs = require('fs');
 
+const crypto = require('crypto');
+
 // Função para exibir o formulário para cadastro de produtos
 function formularioCadastro(req, res){
     res.render('index');
@@ -51,10 +53,12 @@ function logout(req,res) {
     });
 }
 
+//**************************************************************/
 //enviar formulario do servidor para o banco de dados
+/*
 function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema) {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO form_servidor (nome, email, siape, bloco, sala, descricaoProblema, data_solicitacao) VALUES (?, ?, ?, ?, ?, ?, NOW())';
+        const sql = 'INSERT INTO form_servidor (nome, email, siape, bloco, sala, descricaoProblema, data_solicitacao, status) VALUES (?, ?, ?, ?, ?, ?, NOW(), `pendente`)';
         conexao.query(sql, [nome, email, siape, bloco, sala, descricaoProblema], (error, result) => {
             if (error) {
                 reject(error);
@@ -63,13 +67,58 @@ function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema)
             }
         });
     });
+}*/
+//**************************************************************/
+
+//*****************************TESTE********************************/
+function gerarProtocolo() {
+    return crypto.randomBytes(4).toString('hex').toUpperCase(); // Gera um código hexadecimal de 8 caracteres (4 bytes)
 }
+
+function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema, protocolo) {
+    return new Promise((resolve, reject) => {
+        //let protocolo;
+        const tentativasMaximas = 5;
+        let tentativas = 0;
+
+        function inserirComProtocoloUnico() {
+            //protocolo = gerarProtocolo();
+            const sqlVerificar = 'SELECT COUNT(*) AS count FROM form_servidor WHERE protocolo = ?';
+            conexao.query(sqlVerificar, [protocolo], (errorVerificar, resultsVerificar) => {
+                if (errorVerificar) {
+                    reject(errorVerificar);
+                } else {
+                    if (resultsVerificar[0].count === 0) {
+                        const sqlInserir = 'INSERT INTO form_servidor (nome, email, siape, bloco, sala, descricaoProblema, data_solicitacao, status, protocolo) VALUES (?, ?, ?, ?, ?, ?, NOW(), ?, ?)';
+                        conexao.query(sqlInserir, [nome, email, siape, bloco, sala, descricaoProblema, 'pendente', protocolo], (errorInserir, resultInserir) => {
+                            if (errorInserir) {
+                                reject(errorInserir);
+                            } else {
+                                resolve(resultInserir);
+                            }
+                        });
+                    } else {
+                        if (tentativas < tentativasMaximas) {
+                            tentativas++;
+                            inserirComProtocoloUnico();
+                        } else {
+                            reject(new Error('Não foi possível gerar um protocolo único após várias tentativas.'));
+                        }
+                    }
+                }
+            });
+        }
+
+        inserirComProtocoloUnico();
+    });
+}
+//***************************FIM TESTE******************************/
 
 //**************************************************************/
 //Tentando enviar email start
 const nodemailer = require('nodemailer');
 // Função para enviar e-mail
-async function enviarEmail(nome) {
+async function enviarEmail(nome,email,protocolo) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -85,8 +134,16 @@ async function enviarEmail(nome) {
         text: `Uma nova solicitação foi recebida de ${nome}.`
     };
 
+    const msg2 = {
+        from: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
+        to: email, // Substitua pelo endereço de e-mail do administrador
+        subject: 'Nova solicitação de serviço recebida',
+        text: `Olá ${nome}, sua solicitação foi recebida com sucesso, seu protocolo é ${protocolo}`
+    };
+
     try {
         await transporter.sendMail(msg);
+        await transporter.sendMail(msg2);
         console.log('E-mail enviado com sucesso!');
     } catch (error) {
         console.error('Ocorreu um erro ao enviar o e-mail:', error);
@@ -96,10 +153,13 @@ async function enviarEmail(nome) {
 // Função para inserir dados no banco de dados e enviar e-mail
 async function inserirDadosEEnviarEmail(nome, email, siape, bloco, sala, descricaoProblema) {
     try {
-        await inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema);
+
+        let protocolo = gerarProtocolo();
+
+        await inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema, protocolo);
 
         // Enviar e-mail informando sobre a nova solicitação
-        enviarEmail(nome);
+        enviarEmail(nome, email, protocolo);
 
         console.log('E-mail enviado com sucesso!');
     } catch (error) {

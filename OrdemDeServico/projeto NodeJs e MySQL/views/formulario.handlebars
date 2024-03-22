@@ -1,0 +1,32 @@
+
+<main>
+    {{!!--Formulario--}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                {{!--Mensagens--}}
+                {{>mensagens}}
+                
+                <form action="/cadastrar" method="post" enctype="multipart/form-data">
+                    <input type="text" name="nome" class="form-control" placeholder="Nome do produto">
+                    <input type="number" name="valor" class="form-control" placeholder="Valor do produto">
+
+                    <select name="categoria" class="form-control">
+                        <option value="">Categoria do produto</option>
+                        <option value="alimenticio">Alimenticio</option>
+                        <option value="eletronico">Eletronico</option>
+                        <option value="vestuario">Vestuario</option>
+                    </select>    
+
+                    <input type="file" name="imagem" class="form-control">
+                    <input type="submit" class="btn btn-primary" value="Cadastrar">
+                </form>
+            </div>
+
+            
+
+        </div>
+
+    </div>
+   
+</main>

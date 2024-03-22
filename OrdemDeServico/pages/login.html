@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+        <!--header start-->
+        <header>
+            <img src="../imagens/logo-ufam-icet.png" alt="logo-ufam-icet" id="logo">
+        </header>
+        <!--header end-->
+    
+        <!--section menu start-->
+        <section class="menu">
+            <h1>Ordem de Serviço</h1>
+            <form action="" class="form-login">
+                <h2>Gerência</h2>
+
+                <label for="email">Email:</label>
+                <input type="email">
+
+                <label for="password">Senha:</label>
+                <input type="password" name="password" id="password">
+                
+                <div class="form-end">
+                    <br><a href="index.html">voltar</a>
+                    <button onclick="testeLogin()">Entrar</button>
+                </div>
+            </form>
+        </section>
+        <!--section menu end-->
+    
+        <!--footer start-->
+        <footer>
+            <div class="container-footer">
+              <p id="contact">Instituto de Ciências Exatas e Tecnologia</p>
+              <p>Universidade Federal do Amazonas</p>
+              <p>Av. Nossa Senhora do Rosário, 3863 - Bairro Tiradentes, Itacoatiara</p>
+            </div>
+        </footer>
+      <!--footer end-->
+
+      <script>
+        function testeLogin() {
+            console.log("teset");
+            window.location.href = "index.html";
+        }
+      </script>
+
+      <!--scripts start-->
+      <!--scripts end-->  
+</body>
+</html>
