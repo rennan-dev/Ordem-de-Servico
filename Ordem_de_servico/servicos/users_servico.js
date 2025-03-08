@@ -33,8 +33,8 @@ function loginGerente(req,res) {
             return res.render('login', { erro: 'Erro ao consultar o banco de dados' });
         }
         if (result.length > 0) {
-            req.session.usuario = result[0]; // Definindo o usuário na sessão
-            res.redirect('/index_gerente'); // Redireciona para a página de gerente se as credenciais estiverem corretas
+            req.session.usuario = result[0]; //definindo o usuário na sessão
+            res.redirect('/index_gerente'); //redireciona para a página de gerente se as credenciais estiverem corretas
         } else {
             return res.render('login', { erro: 'Credenciais Inválidas' });
         }
@@ -42,7 +42,6 @@ function loginGerente(req,res) {
 }
 
 function logout(req,res) {
-    // Destrua a sessão
     req.session.destroy(function(err) {
         if(err) {
             console.log(err);
@@ -53,26 +52,8 @@ function logout(req,res) {
     });
 }
 
-//**************************************************************/
-//enviar formulario do servidor para o banco de dados
-/*
-function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema) {
-    return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO form_servidor (nome, email, siape, bloco, sala, descricaoProblema, data_solicitacao, status) VALUES (?, ?, ?, ?, ?, ?, NOW(), `pendente`)';
-        conexao.query(sql, [nome, email, siape, bloco, sala, descricaoProblema], (error, result) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(result);
-            }
-        });
-    });
-}*/
-//**************************************************************/
-
-//*****************************TESTE********************************/
 function gerarProtocolo() {
-    return crypto.randomBytes(4).toString('hex').toUpperCase(); // Gera um código hexadecimal de 8 caracteres (4 bytes)
+    return crypto.randomBytes(4).toString('hex').toUpperCase(); //gera um código hexadecimal de 8 caracteres (4 bytes)
 }
 
 function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema, protocolo) {
@@ -82,7 +63,6 @@ function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema,
         let tentativas = 0;
 
         function inserirComProtocoloUnico() {
-            //protocolo = gerarProtocolo();
             const sqlVerificar = 'SELECT COUNT(*) AS count FROM form_servidor WHERE protocolo = ?';
             conexao.query(sqlVerificar, [protocolo], (errorVerificar, resultsVerificar) => {
                 if (errorVerificar) {
@@ -112,7 +92,6 @@ function inserirDadosNoBanco(nome, email, siape, bloco, sala, descricaoProblema,
         inserirComProtocoloUnico();
     });
 }
-//***************************FIM TESTE******************************/
 
 //**************************************************************/
 //Tentando enviar email start
@@ -122,20 +101,20 @@ async function enviarEmail(nome,email,protocolo) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
-            pass: 'fxtg kmjk kgnz yhbl' // Substitua pela sua senha do Gmail ou use um token de aplicativo
+            user: '', // Substitua pelo seu endereço de e-mail
+            pass: '' // Substitua pela sua senha do Gmail ou use um token de aplicativo
         }
     });
 
     const msg = {
-        from: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
-        to: 'rennansouzaalves@gmail.com', // Substitua pelo endereço de e-mail do administrador
+        from: '', // Substitua pelo seu endereço de e-mail
+        to: '', // Substitua pelo endereço de e-mail do administrador
         subject: 'Nova solicitação de serviço recebida',
         text: `Uma nova solicitação foi recebida de ${nome}.`
     };
 
     const msg2 = {
-        from: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
+        from: '', // Substitua pelo seu endereço de e-mail
         to: email, // Substitua pelo endereço de e-mail do administrador
         subject: 'Nova solicitação de serviço recebida',
         text: `Olá ${nome}, sua solicitação foi recebida com sucesso, seu protocolo é ${protocolo}`
