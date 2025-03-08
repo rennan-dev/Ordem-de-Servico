@@ -31,8 +31,8 @@ function loginGerente(req,res) {
             return res.render('login', { erro: 'Erro ao consultar o banco de dados' });
         }
         if (result.length > 0) {
-            req.session.usuario = result[0]; // Definindo o usuário na sessão
-            res.redirect('/index_gerente'); // Redireciona para a página de gerente se as credenciais estiverem corretas
+            req.session.usuario = result[0]; //definindo o usuário na sessão
+            res.redirect('/index_gerente'); 
         } else {
             return res.render('login', { erro: 'Credenciais Inválidas' });
         }
@@ -40,12 +40,10 @@ function loginGerente(req,res) {
 }
 
 function logout(req,res) {
-    // Destrua a sessão
     req.session.destroy(function(err) {
         if(err) {
             console.log(err);
         } else {
-            // Redirecione o usuário para a página de login após o logout
             res.redirect('/login');
         }
     });
@@ -73,14 +71,14 @@ async function enviarEmail(nome) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
-            pass: 'fxtg kmjk kgnz yhbl' // Substitua pela sua senha do Gmail ou use um token de aplicativo
+            user: '', //substitua pelo seu endereço de e-mail
+            pass: '' //substitua pela sua senha do Gmail ou use um token de aplicativo
         }
     });
 
     const msg = {
-        from: 'rennansouzaalves@gmail.com', // Substitua pelo seu endereço de e-mail
-        to: 'rennansouzaalves@gmail.com', // Substitua pelo endereço de e-mail do administrador
+        from: '', //substitua pelo seu endereço de e-mail
+        to: '', //substitua pelo endereço de e-mail do administrador
         subject: 'Nova solicitação de serviço recebida',
         text: `Uma nova solicitação foi recebida de ${nome}.`
     };
